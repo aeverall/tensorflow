@@ -20,10 +20,10 @@ from __future__ import print_function
 
 # Generic layers.
 # pylint: disable=g-bad-import-order
-from tensorflow.python.keras.engine import Input
-from tensorflow.python.keras.engine import InputLayer
-from tensorflow.python.keras.engine import InputSpec
-from tensorflow.python.keras.engine import Layer
+from tensorflow.python.keras.engine.input_layer import Input
+from tensorflow.python.keras.engine.input_layer import InputLayer
+from tensorflow.python.keras.engine.input_spec import InputSpec
+from tensorflow.python.keras.engine.base_layer import Layer
 
 # Advanced activations.
 from tensorflow.python.keras.layers.advanced_activations import LeakyReLU
@@ -145,6 +145,7 @@ from tensorflow.python.keras.layers.recurrent import StackedRNNCells
 from tensorflow.python.keras.layers.recurrent import SimpleRNNCell
 from tensorflow.python.keras.layers.recurrent import GRUCell
 from tensorflow.python.keras.layers.recurrent import LSTMCell
+from tensorflow.python.keras.layers.recurrent import PeepholeLSTMCell
 from tensorflow.python.keras.layers.recurrent import SimpleRNN
 from tensorflow.python.keras.layers.recurrent import GRU
 from tensorflow.python.keras.layers.recurrent import LSTM

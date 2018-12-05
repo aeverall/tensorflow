@@ -38,6 +38,11 @@ def IsInXLAContext(op):
   return GetContainingXLAContext(ctxt) is not None
 
 
+def InXlaContext(graph):
+  ctxt = graph._get_control_flow_context()  # pylint: disable=protected-access
+  return GetContainingXLAContext(ctxt) is not None
+
+
 def IsInWhileLoop(op):
   ctxt = op._get_control_flow_context()  # pylint: disable=protected-access
   return GetContainingWhileContext(ctxt) is not None
@@ -212,6 +217,14 @@ def IsContainingContext(ctxt, maybe_containing_ctxt):
     if ctxt is None: return False
     ctxt = ctxt.outer_context
   return True
+
+
+def OpInContext(op, ctxt):
+  return IsContainingContext(op._get_control_flow_context(), ctxt)  # pylint: disable=protected-access
+
+
+def TensorInContext(tensor, ctxt):
+  return OpInContext(tensor.op, ctxt)
 
 
 def CheckInputFromValidContext(op, input_op):

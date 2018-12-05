@@ -34,6 +34,8 @@ set -e
 #
 # Make sure you have an up to date version of the Bazel build tool installed too.
 
+export TF_ENABLE_XLA=0
+
 yes '' | ./configure
 
 # Fix for curl build problem in 32-bit, see https://stackoverflow.com/questions/35181744/size-of-array-curl-rule-01-is-negative
@@ -65,6 +67,10 @@ OPENBLAS_SRC_PATH=/tmp/openblas_src/
 sudo rm -rf ${OPENBLAS_SRC_PATH}
 git clone https://github.com/xianyi/OpenBLAS ${OPENBLAS_SRC_PATH}
 cd ${OPENBLAS_SRC_PATH}
+# The commit after this introduced Fortran compile issues. In theory they should
+# be solvable using NOFORTRAN=1 on the make command, but my initial tries didn't
+# work, so pinning to the last know good version.
+git checkout 5a6a2bed9aff0ba8a18651d5514d029c8cae336a
 # If this path is changed, you'll also need to update
 # cxx_builtin_include_directory in third_party/toolchains/cpus/arm/CROSSTOOL.tpl
 OPENBLAS_INSTALL_PATH=/tmp/openblas_install/
